@@ -1,0 +1,10 @@
+% substitute( O- integer, N-integer, T-initial list, R- resulted list)
+
+substitute(_,_,[],[]).
+substitute(O, N, [O|T],[N|R]):-
+           substitute(O,N,T,R).
+substitute(O,N,[H|T],[H|R]):-
+           H\= O,
+           substitute(   O,N,T,R).
+     
+           

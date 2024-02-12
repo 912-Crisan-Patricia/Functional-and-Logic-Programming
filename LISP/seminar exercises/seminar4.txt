@@ -1,0 +1,49 @@
+% flow model(i,o)
+%sum(L-list, S-sum)
+sum([],0).
+
+sum([H|T],R):-
+    sum(T,RT),
+    R is H+RT.
+
+%prod(L-list,P-prod)
+%flow model(i,o) (i,i)
+
+prod([],1).
+prod([H|T],R):-
+    prod(T,RT),
+    R is H*RT.
+
+%cond(L-list, S-sum,P-prod)
+%flow model (i,i,i)
+
+cond(L,S,P):-
+    sum(L,S),
+    prod(L,P).
+
+%insertel(L-list,E-element,R-result)
+%flow model (i,i,o)
+
+insertel(L,E,[E|L]).
+insertel([H|T],E,R]:-
+    insertel(T,E,RT),
+    R= [H|RT].
+
+Ank(T,K,R)
+Ank([H|T],K,R):-
+    Ank(T,K,RT),
+    insertel(RT,H,R).
+
+%solver(L-list,K,S-sum,,P-prod,R-output)
+% flow model (i,i,i,o)
+
+solver(L,K,S,P,R):-
+    Ank(L,K,AR),
+    cond(AR,S,P),
+    R=AR.
+
+main(L,K,S,P,R):-
+    findall(X,solver(L,K,S,P,R),R).
+    
+
+

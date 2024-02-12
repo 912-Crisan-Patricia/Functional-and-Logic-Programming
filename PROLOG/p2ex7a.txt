@@ -1,0 +1,27 @@
+%max(l-list, k- 0 integer, m-integer)
+max([], Max, Max).
+
+max([H|T], CurrentMax, Max) :-
+    H >= CurrentMax,
+    max(T, H, Max).
+
+max([H|T], CurrentMax, Max) :-
+    H < CurrentMax,
+    max(T, CurrentMax, Max).
+
+%maxpos(l-initial list, r-result list,m-maxinteger
+
+maxpos(T,R):-
+    max(T,0,M),
+    maxpos(T,M,R,1).
+
+maxpos([],_,[],_).
+
+maxpos([H|T],M,[I|R],I):-
+    H=:=M,
+    NI is I+1,
+    maxpos(T,M,R,NI).
+maxpos([H|T],M,R,I):-
+    H\=M,
+    NI is I+1,
+    maxpos(T,M,R,NI).

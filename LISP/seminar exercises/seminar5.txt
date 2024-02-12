@@ -1,0 +1,97 @@
+seminar 5
+
+Lisp introduction
+
+1. Remove all occurene=ces of an elem from a nenlinear list
+
+remove (l1,l2,l3,...,ln,e) = --[] ,n=0
+			  
+			   --remove(l2,...,ln,e), l1 is atom and l1=e
+			   --remove(l1,e) U remove(l2,...,ln,e) l1 is a list
+			   --l1 U remove(l2,...,e) otherwise
+
+
+(defun remove (lst e)
+	(cond 
+		((null lst) nil)
+		((and( atom (cur lst)) equal (cur lst)e))(remove(cdr lst) e)))
+		((listr(cur list))(cars(remove(cur list)e)remove(cur list)e)))
+		(T (cons(cur list)(remove)(cdr list)e)))
+	)
+	)
+
+call : (remove '(1 2 3(4 5)5)5)
+
+2. Build a list with the positions of the minimum number from a linear list
+
+l=(1 2 3 1 0 3 4 5 0) => l=(5 9)
+
+min_list(l1,..,ln)=| l1, if n=1
+		   | min( l1, min_list(l2,...,ln) , if n>1
+
+min(e1,e2)= | e1, if e1< e2
+	    | e2 otherwise
+
+
+min_list_sym(l1,..,ln,c)= | min_list_sym(l2,....,ln,c) if l1 is not a number
+			  | min_list_sym(l2,...,ln,l1) if  is not a number
+			  | min_list_sym(l2,...,ln,min(l1,c) if both numbers
+			  | c, if n=0
+
+pos_min(l1,...,ln,p,e)= |pos_min(l1,...,ln,p+1,e) if n>0 and l1=!e
+			|p U pos_min(l1,...,ln,p+1,e) if n>0 and l1=e
+			|() if n=0
+
+
+(defun minim (e1,e2)
+	(cond
+		((< e1 e2) e1)
+		(T e2)
+	)
+)
+
+(defun min_list_sym(lst c)
+	(cond
+		((null list) c)
+		(not (numberp(car lst)))(min_list_sym(cdr lst) c))
+		(T (min_list_sym( cdr lst)(minim(car lst) c)))
+
+(defun pos_min(lst p e)
+	(cond 
+		((nul lst) nil)
+		((=(car lst) e)(cons p(pos_min(cdr lst)(+p 1)e)))
+		(T (pos_min(cdr lst) (+p 1)e)))
+	)
+)
+
+(defun min_list(lst)
+(pos_min lst 1
+	(min_lis_sym lst(cdr lst))
+)
+)
+
+cal:: (min '(1 0 3 4 0 6) 
+
+
+same problem different solution
+
+mimpos([l1,...,ln], min, pos, i) = 	pos, if n = 0
+					minpos([l2,...,ln], min, pos, i+1), if l1 is not a number
+					minpos([l2,...,ln], l1, [i], i+1), if min is not a number
+					minpos([l2,...,ln]), min, pos U i, i+1), if l1 = min
+					minpos([l2,...,ln],min,pos,i+1), if l1 > min
+					minpos([l2,...,ln],l1,[i],i+1), if l1 < min
+
+
+
+
+(defun minpos (lst min pos i
+	(cond
+		((null lst) pos)
+		((not (numberp(carlst)))(minpos(cdrlst)minpos((+ 1 i)))
+		((not (numberp min))(minpos (cdr lst)(car lst)(list i))((+ 1 i)))
+
+
+
+		
+		

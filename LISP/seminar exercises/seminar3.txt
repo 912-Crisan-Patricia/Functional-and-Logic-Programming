@@ -1,0 +1,70 @@
+exercises seminar 3 plf
+
+2.
+Given a list of numbers and sublists, replace each sublist in which the sum of the elems in odd,
+with the first elem of that list.
+
+ex: [1,2,[2,4],7,3,[4,6,7],[1],8,10,[3,2]. => [1,2,[2,4],7,3,4,1,8,10,3].
+
+sum(l1...ln)= --0 ,s=0
+	      --l1+sum(l2...ln),otherwise
+
+replace(l1..ln)=--[] ,n=0
+		--l11 reunited replace(l2...ln) if l1= l11l12...l1n and sum l1 is odd
+		--l1 reunited replace(l2l3..ln)  otherwise not list or sum even
+
+sum([],0).
+sum([H|T],S):-
+    sum(T,ST),
+    S is H+ST.
+
+%replace (L-list, R-resulted list)
+%flow model((i,o),(i,i))
+
+replace([],[]).
+replace([H|T],R):-
+    is_list(H),
+    sum(H,S),
+    S mod 2=:=1,
+    replace(T,RT),
+    H= [H1|_],
+    R=[H1|RT].
+
+replace([H|T],R):-
+    atomic(H),
+    replace(T,RT),
+    R = [H|RT].
+
+replace([H|T],R):-
+    is_list(H),
+    sum(H,S),
+    S mod 2 =:=0,
+    replace(T,RT),
+    R = [H|RT].
+
+
+3. Given a list of numbers with sublist numbers, remove the odd numbers from the sublist that 
+have a mountain aspect.(= 3+ elems with an increaing part and a decreaing one) 
+ex : [1,2,[1,2,3,2],6,[1,2],[1,4,5,6,7,1],8,2,[4,3,1],11,5,[6,7,6],8]
+==> [1,2,[2,2],6,[1,2],[4,6],8,2,[4,3,1],11,5,[6,6],8].
+
+mountain(l1..ln,f)=--mountain(l2..ln,0) if l1<l2 and f1 =0 
+		   --mountain(l2...ln,1) if l1>l2 and f=0
+		   --mountain(l2...ln,1) if l1>l2 and f=1
+		   --true, if n=1 and f=1
+		   --false,otherwise
+
+main_root(l1..ln) =--mountain(l1l2...ln,0), if l1<l2
+		  --false, otherwise
+
+
+mountain([_],1).
+mountain([H1,H2|T],0):-
+    H1<H2,
+    mountain([H2|T],0).
+mountain([H1,H2|T],0):-
+    H1>H2,
+    mountain([H2|T],1).
+mountain([H1,H2|T],1):-
+    H1>H2,
+    mountain([H2|T],1).

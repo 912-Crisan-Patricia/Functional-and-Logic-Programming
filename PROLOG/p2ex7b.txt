@@ -1,0 +1,27 @@
+%max(l-list, k- 0 integer, m-integer)
+max([], Max, Max).
+
+max([H|T], CurrentMax, Max) :-
+    H >= CurrentMax,
+    max(T, H, Max).
+
+max([H|T], CurrentMax, Max) :-
+    H < CurrentMax,
+    max(T, CurrentMax, Max).
+%replace (L-list, R-resulted list)
+%flow model((i,o),(i,i))
+
+
+replace([],[]).
+replace([H|T],R):-
+    is_list(H),
+    max(H,0,M),
+    replace(T,RT),
+    R=[M|RT].
+
+replace([H|T],R):-
+    atomic(H),
+    replace(T,RT),
+    R = [H|RT].
+
+%replace([1, [2, 3], [4, 1, 4], 3, 6, [7, 10, 1, 3, 9], 5, [1, 1, 1], 7] ,R)

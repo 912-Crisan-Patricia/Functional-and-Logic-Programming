@@ -1,0 +1,23 @@
+% sublist(S- start integer, E-end integer, T-initial list, R-result list)
+
+sublist(_, _, [], [],_).
+
+sublist(S, E, [H|T], R, I) :-
+    I >= S,
+    I =< E,
+    NI is I + 1,
+    sublist(S, E, T, NewR, NI),
+    R=[H|NewR].
+
+sublist(S, E,[_|T], R, I) :-
+    I < S,
+    NI is I + 1,
+    sublist(S, E, T, R, NI).
+
+sublist(S, E,[_| T], R, I) :-
+    I > E,
+    NI is I + 1,
+    sublist(S, E, T, R, NI).
+
+sublist_main(S, E, L, R) :-
+    sublist(S, E, L, R, 1).
